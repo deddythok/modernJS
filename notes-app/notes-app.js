@@ -1,0 +1,60 @@
+let notes = [];
+
+// object untuk menampung hasil filteran dari input pengguna
+const filters = {
+    searchText: ''
+}
+
+// check for existing saved data
+const notesJSON = localStorage.getItem('notes');
+
+if(notesJSON !== null){
+    notes = JSON.parse(notesJSON);
+}
+
+// fungsi untuk merender notes berdasarkan filteran dari input pengguna
+const renderNotes = function(notes, filters){
+    const filteredNotes = notes.filter(function(note){
+        return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
+    });
+
+    // menghapus notes yang sudah di render sebelumnya
+    document.querySelector('#notes').innerHTML = '';
+    
+    filteredNotes.forEach(function(note){
+        const noteEl = document.createElement('p');
+
+        if(note.title.length > 0 ){
+            noteEl.textContent = note.title;
+
+        } else {
+            noteEl.textContent = 'Unnamed note';
+        }
+
+        document.querySelector('#notes').appendChild(noteEl);
+    });
+}
+
+// panggil fungsi renderNotes utk menampilkan keseluruhan notes yang belum di filter
+renderNotes(notes, filters);
+
+document.querySelector('#create-note').addEventListener('click', function(e){
+    notes.push({
+        title: '',
+        body: ''
+    });
+    localStorage.setItem('notes', JSON.stringify(notes));
+    renderNotes(notes, filters);
+});
+
+
+// menerapkan filter dan me-render notes yang sudah difilter
+document.querySelector('#search-text').addEventListener('input', function(e){
+    filters.searchText = e.target.value;
+    renderNotes(notes, filters);
+});
+
+document.querySelector('#filter-by').addEventListener('change', function(e){
+    console.log(e.target.value);
+});
+
