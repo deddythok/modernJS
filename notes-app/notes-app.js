@@ -1,5 +1,6 @@
 const notes = getSavedNotes();
 
+
 // object untuk menampung hasil filteran dari input pengguna
 const filters = {
     searchText: ''
@@ -10,6 +11,7 @@ renderNotes(notes, filters);
 
 document.querySelector('#create-note').addEventListener('click', function(e){
     notes.push({
+        id: uuid.v4(),
         title: '',
         body: ''
     });
