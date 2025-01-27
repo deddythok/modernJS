@@ -10,13 +10,14 @@ const filters = {
 renderNotes(notes, filters);
 
 document.querySelector('#create-note').addEventListener('click', function(e){
+    const id = uuid.v4();
     notes.push({
-        id: uuid.v4(),
+        id: id,
         title: '',
         body: ''
     });
     saveNotes(notes);
-    renderNotes(notes, filters);
+    location.assign(`/edit.html#${id}`);
 });
 
 // menerapkan filter dan me-render notes yang sudah difilter
