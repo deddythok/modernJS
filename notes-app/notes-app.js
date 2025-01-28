@@ -30,3 +30,10 @@ document.querySelector('#filter-by').addEventListener('change', function(e){
     console.log(e.target.value);
 });
 
+
+window.document.addEventListener('storage', function(e){
+    if(e.key === 'notes'){
+        notes = JSON.parse(e.newValue);
+        renderNotes(notes, filters);
+    }
+});
