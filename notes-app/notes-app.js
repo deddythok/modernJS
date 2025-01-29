@@ -3,7 +3,8 @@ const notes = getSavedNotes();
 
 // object untuk menampung hasil filteran dari input pengguna
 const filters = {
-    searchText: ''
+    searchText: '',
+    sortBy: 'byEdited'
 }
 
 // panggil fungsi renderNotes utk menampilkan keseluruhan notes yang belum di filter
@@ -11,10 +12,13 @@ renderNotes(notes, filters);
 
 document.querySelector('#create-note').addEventListener('click', function(e){
     const id = uuid.v4();
+    const timestamp = moment().valueOf();
     notes.push({
         id: id,
         title: '',
-        body: ''
+        body: '',
+        createdAt: timestamp,
+        updatedAt: timestamp
     });
     saveNotes(notes);
     location.assign(`/edit.html#${id}`);
@@ -27,7 +31,8 @@ document.querySelector('#search-text').addEventListener('input', function(e){
 });
 
 document.querySelector('#filter-by').addEventListener('change', function(e){
-    console.log(e.target.value);
+    filters.sortBy = e.target.value;
+    renderNotes(notes, filters);
 });
 
 
@@ -37,16 +42,5 @@ window.document.addEventListener('storage', function(e){
         renderNotes(notes, filters);
     }
 });
-
-// const now = moment();
-// now.subtract(1, 'week').subtract(20, 'days');
-// console.log(now.format('MMMM Do, YYYY '));
-// console.log(now.fromNow());
-// const nowTimestamp = now.valueOf();
-// console.log(moment(nowTimestamp).toString());   
-
-const birthday = moment();
-birthday.year(1983).month(9).date(25);
-console.log(birthday.format('MMM D, YYYY'));
 
 
