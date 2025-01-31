@@ -10,7 +10,7 @@ const filters = {
 // panggil fungsi renderNotes utk menampilkan keseluruhan notes yang belum di filter
 renderNotes(notes, filters);
 
-document.querySelector('#create-note').addEventListener('click', function(e){
+document.querySelector('#create-note').addEventListener('click', (e) => {
     const id = uuid.v4();
     const timestamp = moment().valueOf();
     notes.push({
@@ -25,18 +25,18 @@ document.querySelector('#create-note').addEventListener('click', function(e){
 });
 
 // menerapkan filter dan me-render notes yang sudah difilter
-document.querySelector('#search-text').addEventListener('input', function(e){
+document.querySelector('#search-text').addEventListener('input', (e) => {
     filters.searchText = e.target.value;
     renderNotes(notes, filters);
 });
 
-document.querySelector('#filter-by').addEventListener('change', function(e){
+document.querySelector('#filter-by').addEventListener('change', (e) => {
     filters.sortBy = e.target.value;
     renderNotes(notes, filters);
 });
 
 
-window.document.addEventListener('storage', function(e){
+window.document.addEventListener('storage', (e) => {
     if(e.key === 'notes'){
         notes = JSON.parse(e.newValue);
         renderNotes(notes, filters);
