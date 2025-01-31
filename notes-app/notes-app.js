@@ -1,5 +1,6 @@
-const notes = getSavedNotes();
+'use strict';
 
+const notes = getSavedNotes();
 
 // object untuk menampung hasil filteran dari input pengguna
 const filters = {
